@@ -44,6 +44,12 @@ export interface Question {
   id: number
   question: string
   answer: string
+  mediaUrl?: string
+  mediaAlt?: string
+  questionInnerList: { listElement: string; listElementTitle: string }[]
+  linkOrDescription?: string
+  referenceUsername?: string
+  innerListTitle: string
 }
 
 export interface Paragraph {
@@ -52,13 +58,31 @@ export interface Paragraph {
 }
 
 export enum EntryCategory {
-  İÇERİKLER = 'icerikler',
-  MİTLER = 'mitler',
+  ICERIKLER = 'içerikler',
   UNLULER = 'ünlüler',
-  İPUÇLARI = 'ipuçları',
-  ENDISE = 'endise',
-  CILTTURU = 'ciltTuru',
-  HERO = 'hero',
+  IPUCLARI = 'ipuçları',
+  ENDISE = 'endişe',
+  TRENDLER = 'trendler',
+  RUTINLER = 'rutinler',
+  ISLEMLER = 'işlemler',
+  URUNLER = 'ürünler',
+  MERAK = 'merak',
+  HABERLER = 'haberler',
+}
+
+export const EntryCategoryValues = {
+  ICERIKLER: 'İçerikler',
+  UNLULER: 'Ünlüler',
+  IPUCLARI: 'İpuçları',
+  ENDISE: 'Endişe',
+  TRENDLER: 'Trendler',
+  RUTINLER: 'Rutinler',
+  ISLEMLER: 'İşlemler',
+  URUNLER: 'Ürünler',
+  MERAK: 'SSS',
+  HABERLER: 'Haberler',
+  MITLER: 'Mitler',
+  CILTTURU: 'Cilt Türü',
 }
 
 export interface Attributes {
@@ -74,12 +98,21 @@ export interface Attributes {
     data: ImageData
   }
   questions: Question[]
+  pageDescription?: string
+  attributions: Attirbution[]
+  keywords: { id: number; keyword: string }[]
   paragraphs: Paragraph[]
 }
 
 export interface DataItem {
   id: number
   attributes: Attributes
+}
+
+export interface Attirbution {
+  author: number
+  nameOfArticle: string
+  link: string
 }
 
 export interface Pagination {

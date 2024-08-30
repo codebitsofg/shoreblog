@@ -1,40 +1,91 @@
-import AboutUsExplainer from '@/components/AboutUsExplainer'
 import Carousel from '@/components/Carousel'
 import Divider from '@/components/Divider'
 import Gallery from '@/components/Gallery'
 import Hero from '@/components/Hero'
 import HorizontalFlowRow from '@/components/HorizontalFlowRow'
+import CookieModal from '@/components/CookieModal'
 import PostFlow from '@/components/PostFlow'
-import { fetchCMSEntries } from '@/lib/utils'
+import { fetchCMSEntries, filterEntries } from '@/lib/utils'
 import { EntryCategory } from '@/types/api'
+import FlowContainerWithBackground from '@/components/FlowContainerWithBackground'
 
 const Home = async () => {
   const entries = await fetchCMSEntries()
-  const filterEntries = (filter: EntryCategory) => {
-    return entries.filter(({ attributes: { category } }) => category === filter)
-  }
-
   return (
-    <main>
-      <Hero entries={filterEntries(EntryCategory.HERO)} />
+    <main className='overflow-hidden'>
+      <Hero entries={filterEntries(EntryCategory.HABERLER, entries)} />
+
+      <Gallery
+        title={'A-Z İçerikler'}
+        entries={filterEntries(EntryCategory.ICERIKLER, entries)}
+      />
+
+      <FlowContainerWithBackground>
+        <HorizontalFlowRow
+          title='Rutinler'
+          entries={filterEntries(EntryCategory.RUTINLER, entries)}
+        />
+      </FlowContainerWithBackground>
+
+      <div className='my-6 py-2 md:py-6'>
+        <Carousel
+          text='Endişeler'
+          showMoreVisible={true}
+          isHero={false}
+          isHeadlineVisible={true}
+          entries={filterEntries(EntryCategory.ENDISE, entries)}
+        />
+      </div>
+
+      <HorizontalFlowRow
+        title='Trendler'
+        entries={filterEntries(EntryCategory.TRENDLER, entries)}
+      />
+
+      <FlowContainerWithBackground>
+        <Gallery
+          title='Merak Edilenler'
+          entries={filterEntries(EntryCategory.MERAK, entries)}
+        />
+      </FlowContainerWithBackground>
+
+      <Carousel
+        isHero={false}
+        isHeadlineVisible={true}
+        text='Ürün İncelemeleri'
+        entries={filterEntries(EntryCategory.URUNLER, entries)}
+        showMoreVisible={true}
+      />
+
+      <Gallery
+        title={'İpuçları'}
+        entries={filterEntries(EntryCategory.IPUCLARI, entries)}
+      />
+
+      <FlowContainerWithBackground>
+        <HorizontalFlowRow
+          title='Ünlüler'
+          entries={filterEntries(EntryCategory.UNLULER, entries)}
+        />
+      </FlowContainerWithBackground>
+
+      <Carousel
+        isHero={false}
+        isHeadlineVisible={true}
+        text='Haberler'
+        entries={filterEntries(EntryCategory.HABERLER, entries)}
+        showMoreVisible={true}
+      />
+
+      <div className='my-10 py-6'>
+        <HorizontalFlowRow
+          title='Medikal İşlemler'
+          entries={filterEntries(EntryCategory.ISLEMLER, entries)}
+        />
+      </div>
       <Divider />
       <PostFlow entries={entries} />
-      <Divider />
-      <HorizontalFlowRow
-        title='Endişe'
-        entries={filterEntries(EntryCategory.ENDISE)}
-      />
-
-      <Carousel text='Trendler' showMoreVisible={true} />
-      <Gallery entries={filterEntries(EntryCategory.İÇERİKLER)} />
-      <Divider />
-      <HorizontalFlowRow
-        title='Cilt Türleri'
-        entries={filterEntries(EntryCategory.CILTTURU)}
-      />
-      <Carousel text='İpuçları' showMoreVisible={true} />
-      <Divider />
-      <AboutUsExplainer />
+      <CookieModal />
     </main>
   )
 }

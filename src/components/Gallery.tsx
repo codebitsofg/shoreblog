@@ -3,14 +3,16 @@ import Headline from './Headline'
 import PostPreview from './PostPreview'
 import { PostFlowProps } from './PostFlow'
 
-interface GalleryProps extends PostFlowProps {}
-const Gallery = ({ entries }: GalleryProps) => {
+interface GalleryProps extends PostFlowProps {
+  title?: string
+}
+const Gallery = ({ entries, title }: GalleryProps) => {
   return (
-    <div className='mx-auto my-36 w-[80%]'>
-      <Headline text={'İçerikler'} />
+    <div className='mx-auto w-[88%]'>
+      <Headline text={title} />
 
-      <div className='flex items-center justify-around gap-10'>
-        <div className='flex flex-1 items-center justify-center self-stretch'>
+      <div className='flex flex-col items-start gap-10 md:flex-row'>
+        <div className='flex flex-1 items-center self-stretch'>
           {entries[0] && (
             <PostPreview
               isLarge={true}
@@ -20,13 +22,10 @@ const Gallery = ({ entries }: GalleryProps) => {
           )}
         </div>
 
-        <div className='flex flex-1 flex-col gap-6'>
+        <div className='flex flex-1 justify-between gap-2'>
           {entries
-            .slice(1)
-            .map(
-              (entry, index) =>
-                entry && <PostPreview entryData={entry} isVertical={false} />,
-            )}
+            .slice(1, 3)
+            .map((entry, index) => entry && <PostPreview entryData={entry} />)}
         </div>
       </div>
     </div>

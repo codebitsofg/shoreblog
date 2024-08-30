@@ -5,17 +5,18 @@ import Socials from './Socials'
 
 const AboutUsExplainer = () => {
   return (
-    <div className='mx-auto mb-32 flex w-[80%] items-center gap-4'>
-      <div className='flex-[0.3]'>
+    <div className='mx-auto mb-12 flex w-[80%] flex-col items-center gap-4 text-center md:mb-32 md:flex-row md:text-left'>
+      <div className='h-12 w-full md:h-auto md:w-auto md:flex-[0.3]'>
         <ShoreLogo />
       </div>
-      <p className='flex-[0.5] font-["Oswald"] font-thin'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-        sapiente, voluptatibus error nulla sed dolor! Facere sed dolor impedit
-        delectus nobis, provident laudantium iure velit, asperiores officiis,
-        eveniet quasi adipisci?
+      <p className='my-6 flex-[0.5] font-["Oswald"] text-sm font-thin md:my-0 md:text-sm'>
+        Shore cilt bakımının bazılarının yaşamında vazgeçilmez bir öneme sahip
+        olduğuna inanarak; farklı cilt tipleri ve ihtiyaçları için etkili,
+        bilimsel temelli ve pratik öneriler sunan bir platform. Ve misyonumuz
+        basit: Bireyselliği kutlamak ve okuyucularn farkındalık ve biraz ışıltı
+        yoluyla kendilerine güven bulmalarını sağlamak.
       </p>
-      <div className='flex flex-[0.2] items-center justify-center'>
+      <div className='-mt-3 flex flex-[0.2] items-center justify-center md:mt-0'>
         <Socials />
       </div>
     </div>

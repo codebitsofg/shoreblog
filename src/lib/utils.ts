@@ -1,4 +1,4 @@
-import { DataItem, Response } from '@/types/api'
+import { DataItem, EntryCategory, Response } from '@/types/api'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -8,15 +8,29 @@ export function cn(...inputs: ClassValue[]) {
 
 export const fetchCMSEntries = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/posts?populate=*`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/posts?populate[questions][populate][questionInnerList]=*&populate[image]=*&populate[paragraphs]=*&populate[attributions]=*&populate[keywords]=*`,
     {
       headers: {
         'Content-Type': 'application/json',
       },
+      // cache: 'no-store',
     },
   )
   const data = await res.json()
-  return data.data as DataItem[]
+  return data.data.reverse() as DataItem[]
+}
+
+export const getPageData = async (pageSlug: string) => {
+  const allEntries = await fetchCMSEntries()
+  const pageData = allEntries.find(
+    ({ attributes: { slug } }) => slug === pageSlug,
+  )?.attributes
+  const imgUrl = pageData?.image.data.attributes.url
+  return {
+    pageData,
+    imgUrl,
+    allEntries,
+  }
 }
 
 export const formatTheDate = (dateStr: string) => {
@@ -50,4 +64,16 @@ export const getTimeDifference = (createdAt: string): string => {
   } else {
     return '0 dakika önce'
   }
+}
+
+export const getFirstThreeSentences = (text: string) => {
+  const sentences = text.match(/[^.!?]+[.!?]+/g)
+  return sentences ? sentences.slice(0, 2).join(' ') : ''
+}
+
+export const splitOnUppercase = (word: string) =>
+  word.replace(/([A-Z])/g, ' $1').trim()
+
+export const filterEntries = (filter: EntryCategory, entries: DataItem[]) => {
+  return entries.filter(({ attributes: { category } }) => category === filter)
 }

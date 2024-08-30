@@ -1,7 +1,9 @@
 'use client'
 import React, { useRef } from 'react'
 import Autoplay from 'embla-carousel-autoplay'
+import Fade from 'embla-carousel-fade'
 import {
+  CarouselApi,
   Carousel as CarouselBase,
   CarouselContent,
   CarouselItem,
@@ -9,39 +11,65 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import Headline from './Headline'
+import HeroHighlight from './HeroHighlight'
+import { DataItem } from '@/types/api'
+import PostPreview from './PostPreview'
+import MainHeroView from './MainHeroView'
 
 export interface CarouselProps {
   showMoreVisible?: boolean
-  text: string
+  text?: string
+  carouselBasis?: string
+  height?: string
+  width?: string
+  entries?: DataItem[]
+  isHero?: boolean
+  isHeadlineVisible?: boolean
 }
 
-const Carousel = ({ showMoreVisible, text }: CarouselProps) => {
-  const plugin = useRef(Autoplay({ delay: 10000, stopOnInteraction: true }))
+const Carousel = ({
+  showMoreVisible,
+  text,
+  carouselBasis = '1/4',
+  height = 'h-[32vh]',
+  width = 'w-[88%]',
+  entries,
+  isHero,
+  isHeadlineVisible = true,
+}: CarouselProps) => {
+  const basis = isHero ? 'basis-full' : 'basis-1/2 md:basis-1/4'
+  const plugin = useRef(Autoplay({ delay: 6000, stopOnInteraction: true }))
+  const fadePlugin = useRef(Fade({ active: isHero ? true : false }))
+
   return (
-    <div className='mx-auto my-12 mb-36 w-[80%] font-light'>
-      <Headline showMoreVisible={showMoreVisible} text={text} />
+    <div className={`relative mx-auto mb-2 md:mb-12 ${width} font-light`}>
+      {isHeadlineVisible && (
+        <Headline text={text} showMoreVisible={showMoreVisible} />
+      )}
 
       <CarouselBase
         opts={{
           align: 'start',
           loop: true,
         }}
-        plugins={[plugin.current]}
+        plugins={[plugin.current, fadePlugin.current]}
       >
-        <CarouselContent className=''>
-          {Array.from({ length: 5 }).map((_, index) => (
+        <CarouselContent>
+          {entries!.map((entry, idx) => (
             <CarouselItem
-              key={index}
-              className='pl-1 md:basis-1/2 lg:basis-1/4'
+              key={idx}
+              className={`flex items-start justify-center ${basis}`}
             >
-              <div className='flex h-[30vh] items-center justify-center bg-black'>
-                {index + 1}
-              </div>
+              {!isHero ? (
+                <PostPreview entryData={entry} />
+              ) : (
+                <MainHeroView entry={entry} />
+              )}
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
         <CarouselNext />
+        <CarouselPrevious />
       </CarouselBase>
     </div>
   )

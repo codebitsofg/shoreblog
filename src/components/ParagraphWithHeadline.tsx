@@ -1,19 +1,86 @@
-import React from 'react'
+import React, { forwardRef, Ref, useCallback, useMemo } from 'react'
+import { Question } from '@/types/api'
 
 interface ParagraphWithHeadlineProps {
-  headline: string
-  paragraph: string
+  question: Question
 }
-const ParagraphWithHeadline = ({
-  headline,
-  paragraph,
-}: ParagraphWithHeadlineProps) => {
-  return (
-    <div className='mb-10'>
-      <h2 className='mb-2 text-2xl font-normal'> {headline} </h2>
-      <p> {paragraph} </p>
-    </div>
-  )
-}
+
+const ParagraphWithHeadline = forwardRef<
+  HTMLDivElement,
+  ParagraphWithHeadlineProps
+>(
+  (
+    {
+      question: {
+        mediaUrl,
+        question,
+        answer,
+        mediaAlt,
+        linkOrDescription,
+        questionInnerList,
+        referenceUsername,
+        innerListTitle,
+      },
+    }: ParagraphWithHeadlineProps,
+    ref: Ref<HTMLDivElement>,
+  ) => {
+    const isLink = linkOrDescription?.startsWith('https://')
+    const splitIntoParagraphs = useCallback((text: string) => {
+      if (answer) {
+        const sentences = answer.split(/(?<=[.!?])\s+/)
+        const paragraphs: string[] = []
+        for (let i = 0; i < sentences.length; i += 3) {
+          paragraphs.push(sentences.slice(i, i + 3).join(' '))
+        }
+        return paragraphs
+      }
+    }, [])
+    const paragraphs = useMemo(() => splitIntoParagraphs(answer), [answer])
+    return (
+      <div ref={ref} className='my-16 md:mb-12'>
+        <div className='mb-6 text-center'>
+          {mediaUrl && (
+            <img
+              className='mb-2 h-[50vh] w-full rounded-sm object-cover'
+              src={mediaUrl}
+              alt={mediaAlt || 'Image'}
+            />
+          )}
+
+          {linkOrDescription && isLink ? (
+            <a className='text-xs text-purple-600' href={linkOrDescription}>
+              @{referenceUsername}
+              <span className='text-[0.6rem] text-neutral-800'>
+                {' '}
+                / INSTAGRAM
+              </span>
+            </a>
+          ) : (
+            <span>{linkOrDescription}</span>
+          )}
+        </div>
+        <h2 className='mb-3 text-left text-xl font-semibold md:text-3xl'>
+          {question}
+        </h2>
+        {paragraphs &&
+          paragraphs.map((para, index) => (
+            <p className='mb-2' key={index}>
+              {para}
+            </p>
+          ))}
+
+        <span className='my-3 block font-semibold'>{innerListTitle}</span>
+        <ul className='list-inside list-disc pl-3'>
+          {questionInnerList.map(({ listElement, listElementTitle }) => (
+            <li className='mb-5'>
+              <h3 className='inline font-semibold'>{listElementTitle}</h3>
+              {listElement}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  },
+)
 
 export default ParagraphWithHeadline

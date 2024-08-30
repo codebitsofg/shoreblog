@@ -4,10 +4,16 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import Socials from '@/components/Socials'
+import Head from 'next/head'
+import AboutUsExplainer from '@/components/AboutUsExplainer'
+import Divider from '@/components/Divider'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://skknshore.com'),
   title: 'Shore | Cilt bakımın için ipuçları ve daha fazlası',
-  description: 'Cilt bakımın için ipuçları ve daha fazlası',
+  description:
+    'Cilt bakımın için ipuçları ve daha fazlası. Cilt bakımında merak edilenler, rehberler, doğru bilinen yanlışlar ve cilt bakım elemanlarının derinlemesine çözümlenmesi.',
   icons: [
     {
       rel: 'icon',
@@ -24,13 +30,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
-      <body className="overflow-x-hidden bg-gray-50 font-['Lora']">
+    <html lang='tr'>
+      <body className="bg-zinc-50 font-['Lora']">
         <Navigation />
         {children}
+        <Divider />
+        <AboutUsExplainer />
+        <div id='portal-container' />
         <Footer />
-        {/* <Socials /> */}
       </body>
+      <GoogleAnalytics gaId='G-KBKQ2EWH2H' />
     </html>
   )
 }
