@@ -8,6 +8,7 @@ import Head from 'next/head'
 import AboutUsExplainer from '@/components/AboutUsExplainer'
 import Divider from '@/components/Divider'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://skknshore.com'),
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Navigation />
         {children}
         <Divider />
+        <Toaster />
         <AboutUsExplainer />
         <div id='portal-container' />
         <Footer />
