@@ -26,10 +26,10 @@ const HeroHighlight = ({ entry, isSmall = false }: HeroHighlightProps) => {
           />
         </div>
         <div className={`mt-6 flex flex-col items-center justify-center`}>
-          <h1 className='mb-2 text-center text-xl capitalize text-neutral-800 md:text-[1.3rem]'>
+          <h1 className='mb-2 text-center text-neutral-800 text-xl md:text-[1.3rem] capitalize'>
             {entry.attributes.title}
           </h1>
-          <span className='text-[0.6rem]pa hidden font-["Oswald"] font-extralight text-neutral-600 md:block md:text-base'>
+          <span className='md:block hidden font-["Oswald"] font-extralight text-[0.6rem]pa text-neutral-600 md:text-base'>
             {formatTheDate(entry.attributes.createdAt)}
           </span>
         </div>

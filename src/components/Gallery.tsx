@@ -8,10 +8,10 @@ interface GalleryProps extends PostFlowProps {
 }
 const Gallery = ({ entries, title }: GalleryProps) => {
   return (
-    <div className='mx-auto w-[88%]'>
+    <div className='mx-auto mt-12 w-[88%]'>
       <Headline text={title} />
 
-      <div className='flex flex-col items-start gap-10 md:flex-row'>
+      <div className='flex md:flex-row flex-col items-start gap-10'>
         <div className='flex flex-1 items-center self-stretch'>
           {entries[0] && (
             <PostPreview

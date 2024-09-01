@@ -6,7 +6,7 @@ interface AttirbutionsProps {
 }
 const Attirbutions = ({ attributions }: AttirbutionsProps) => {
   return (
-    <div className='mx-auto pt-6 border-t-4 border-black w-[90%] md:w-[70%] text-[0.4rem] md:text-[0.6rem] leading-3'>
+    <div className='mx-auto pt-6 border-t-4 border-black w-[90%] md:w-[80%] text-[0.4rem] md:text-[0.6rem] leading-3'>
       <span className='block font-bold text-xs'>Kaynaklar Ve Notlar</span>
       <span className='block mb-1 md:mb-2 font-medium text-black leading-3'>
         Bu metindeki öneriler ve bilgiler profesyonel tasviye yerine geçmez ve

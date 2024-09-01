@@ -57,7 +57,7 @@ const PostPreview = ({
       <div className='relative flex-[0.5]'>
         <Link passHref href={`/yazilar/${entryData.attributes.slug}`}>
           <img
-            className={`${imageSize} mb-2 rounded-sm object-cover contrast-[0.9] transition-all duration-300 hover:contrast-[1.02]`}
+            className={`${imageSize} mb-2 rounded object-cover contrast-[0.9] transition-all duration-300 hover:contrast-[1.02]`}
             src={image.data.attributes.url}
             alt={title}
             ref={imgRef}
@@ -73,7 +73,7 @@ const PostPreview = ({
       <div
         className={`flex-col ${textContainerStyle} flex flex-1 items-start gap-1 md:gap-2`}
       >
-        <span className='-mb-1 mt-2 flex items-center justify-center gap-2 font-["Oswald"] text-[0.65rem] font-normal uppercase text-neutral-800 md:text-[0.7rem]'>
+        <span className='flex justify-center items-center gap-2 mt-2 -mb-1 font-["Oswald"] font-normal text-[0.65rem] text-neutral-800 md:text-[0.7rem] uppercase'>
           {splitOnUppercase(category)}
         </span>
         <span

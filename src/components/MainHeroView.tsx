@@ -1,41 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { HeroHighlightProps } from './HeroHighlight'
 import { formatTheDate, getFirstThreeSentences } from '@/lib/utils'
 import Link from 'next/link'
+import Image from 'next/image'
+import SkeletonDemo from './SkeletonDemo'
 
 interface MainHeroViewProps extends HeroHighlightProps {}
 const MainHeroView = ({ entry }: MainHeroViewProps) => {
+  const [isLoaded, setIsLoaded] = useState(false)
   const entryData = entry.attributes
   return (
-    <div className='flex h-[78vh] w-full flex-col-reverse items-center justify-end text-center md:h-[70vh] md:flex-row md:justify-around md:gap-0 md:text-left'>
-      <div className='relative flex h-full w-full items-end'>
-        <div className='relative z-10 flex h-auto w-full flex-col justify-between rounded-l-md bg-gray-100 px-2 py-4 md:h-full md:w-[40%] md:px-10 md:py-20'>
-          <div className='px-1'>
-            <span className='hidden font-["Oswald"] text-xs capitalize text-gray-400 md:block md:text-base'>
+    <div className='relative flex md:flex-row flex-col-reverse justify-end md:justify-around items-center md:gap-0 w-full h-[80vh] md:h-[70vh] text-center md:text-left overflow-hidden'>
+      <div className='flex flex-col justify-end items-end md:items-start w-full h-full'>
+        <div className='relative z-50 box-border flex flex-col justify-around items-start bg-gray-100 md:px-10 py-4 md:py-20 w-full md:w-[40%] h-auto md:h-full'>
+          <div>
+            <span className='md:block hidden font-["Oswald"] text-gray-400 text-xs md:text-base capitalize'>
               {entryData.category}
             </span>
-            <h1 className='my-2 text-[1.6rem] font-medium leading-8 text-neutral-800 md:mb-6 md:text-4xl md:leading-10'>
+            <h1 className='my-2 md:mb-6 font-medium text-[1.3rem] text-neutral-800 md:text-4xl leading-8 md:leading-10'>
               {entryData.title}
             </h1>
-            <p className='mx-auto w-[85%] text-xs text-gray-500 md:w-full md:text-base'>
+            <p className='mx-auto w-[75%] md:w-full text-[0.7rem] text-gray-500 text-justify md:text-base'>
               {getFirstThreeSentences(entryData.paragraphs[0].paragraph)}
             </p>
-            <button className='mt-4 w-max rounded-sm bg-gray-300 px-3 py-1 font-["Oswald"] text-sm text-gray-50 md:px-6 md:py-2'>
+            <button className='bg-gray-300 mt-4 px-3 md:px-6 py-1 md:py-2 rounded-sm w-max font-["Oswald"] text-gray-50 text-sm'>
               <Link passHref href={`/yazilar/${entryData.slug}`}>
                 Yazıyı Oku
               </Link>
             </button>
           </div>
-          <span className='hidden font-["Oswald"] text-xs text-gray-500 md:block md:text-base'>
+          <span className='md:block hidden font-["Oswald"] text-gray-500 text-xs md:text-base'>
             {formatTheDate(entryData.createdAt)}
           </span>
         </div>
 
-        <img
-          className='absolute left-0 top-0 h-full w-full rounded-md object-cover'
+        <Image
+          fill={true}
+          className='z-40 absolute object-cover'
           src={entry.attributes.image.data.attributes.url}
           alt=''
+          onLoad={() => setIsLoaded(true)}
         />
+        <div className='top-20 md:top-1/2 left-1/2 md:left-[70%] z-30 box-border absolute w-full md:w-[55%] transform -translate-x-1/2 md:-translate-y-1/2'>
+          {!isLoaded && <SkeletonDemo />}
+        </div>
       </div>
     </div>
   )

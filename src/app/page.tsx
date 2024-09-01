@@ -11,6 +11,7 @@ import FlowContainerWithBackground from '@/components/FlowContainerWithBackgroun
 
 const Home = async () => {
   const entries = await fetchCMSEntries()
+
   return (
     <main className='overflow-hidden'>
       <Hero entries={filterEntries(EntryCategory.HABERLER, entries)} />

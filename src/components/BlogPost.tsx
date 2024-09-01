@@ -30,22 +30,22 @@ const BlogPost = ({ blogPostData, imgUrl }: BlogPostProps) => {
   }
   const handleCloseGif = () => setShouldShowGif(false)
   return (
-    <div className='flex-1 px-2 md:flex-[0.65] md:px-0'>
+    <div className='flex-1 md:flex-[0.65] px-2 md:px-0'>
       <div className='text-center'>
-        <span className='mb-1 hidden text-xs uppercase text-neutral-600 md:mb-3 md:block md:text-base'>
+        <span className='md:block hidden mb-1 md:mb-3 text-neutral-600 text-xs md:text-base uppercase'>
           {splitOnUppercase(category)}
         </span>
-        <h1 className='m-0 mb-3 p-0 text-center text-3xl font-normal capitalize text-neutral-800 md:mb-6 md:text-6xl md:leading-[4rem]'>
+        <h1 className='m-0 mb-3 md:mb-6 p-0 font-normal text-3xl text-center text-neutral-800 md:text-6xl capitalize md:leading-[4rem]'>
           {title}
         </h1>
         <div className='mb-12'>
           <span className='capitalize'>By {editor}</span>
-          <span className='mx-3 inline-block text-neutral-600'>|</span>
+          <span className='inline-block mx-3 text-neutral-600'>|</span>
           {formatTheDate(createdAt)}
         </div>
       </div>
       <motion.img
-        className='mb-6 h-[40vh] w-full rounded-sm object-cover md:mb-12 md:h-[60vh]'
+        className='mb-6 md:mb-12 rounded w-full h-[40vh] md:h-[60vh] object-cover'
         alt={title}
         src={imgUrl}
         onViewportLeave={() => setisImageOnView(true)}
@@ -56,14 +56,14 @@ const BlogPost = ({ blogPostData, imgUrl }: BlogPostProps) => {
         subHeadlines={questions.map(({ question }, i) => (
           <h2
             onClick={() => scrollToSection(i)}
-            className='flex cursor-pointer items-baseline gap-1 text-base md:text-lg'
+            className='flex items-baseline gap-1 text-base md:text-lg cursor-pointer'
           >
             <span className='font-normal text-neutral-700'>•</span> {question}
           </h2>
         ))}
       />
 
-      <div className='mx-auto flex w-[90%] flex-col items-center text-sm leading-5 md:w-[70%] md:gap-8 md:text-base md:leading-[1.8rem]'>
+      <div className='flex flex-col items-center md:gap-8 mx-auto w-[90%] md:w-[80%] text-sm md:text-base leading-5 md:leading-[1.8rem]'>
         <p className='first-letter:float-left first-letter:mr-4 first-letter:text-7xl'>
           {paragraphs[0].paragraph}
         </p>
@@ -72,10 +72,10 @@ const BlogPost = ({ blogPostData, imgUrl }: BlogPostProps) => {
           paragraphs.map(({ paragraph }, i) => i >= 1 && <p> {paragraph} </p>)}
         <div>
           {highlightedParagraph && (
-            <p className='mx-auto mb-6 mt-4 w-[90%] text-center text-base font-medium italic md:mb-12 md:w-[80%] md:text-2xl'>
-              <span className='text-3xl font-semibold'>"</span>
+            <p className='mx-auto mt-4 mb-6 md:mb-12 w-[90%] md:w-[80%] font-medium text-base text-center md:text-2xl italic'>
+              <span className='font-semibold text-3xl'>"</span>
               {highlightedParagraph}
-              <span className='text-3xl font-semibold'>"</span>
+              <span className='font-semibold text-3xl'>"</span>
             </p>
           )}
           {questions.map((questionWithMedia, i) => (

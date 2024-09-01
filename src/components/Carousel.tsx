@@ -24,6 +24,7 @@ export interface CarouselProps {
   width?: string
   entries?: DataItem[]
   isHero?: boolean
+  paginationStyle?: string
   isHeadlineVisible?: boolean
 }
 
@@ -34,6 +35,7 @@ const Carousel = ({
   height = 'h-[32vh]',
   width = 'w-[88%]',
   entries,
+  paginationStyle = 'bg-gray-50',
   isHero,
   isHeadlineVisible = true,
 }: CarouselProps) => {
@@ -68,8 +70,8 @@ const Carousel = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselNext />
-        <CarouselPrevious />
+        <CarouselNext className={paginationStyle} />
+        <CarouselPrevious className={paginationStyle} />
       </CarouselBase>
     </div>
   )

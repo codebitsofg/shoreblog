@@ -37,13 +37,13 @@ const Page = async ({ params: { slug } }: PageProps) => {
   const entries = await fetchCMSEntries()
   if (!pageData) return <></>
   return (
-    <main className='w-screen overflow-x-hidden text-justify text-sm font-light text-neutral-800 md:w-full md:overflow-visible'>
-      <div className='flex justify-center py-[20%] pb-[10%] md:py-32'>
-        <div className='top-20 hidden flex-[0.1] justify-end self-start pr-6 md:sticky md:flex'>
+    <main className='w-screen md:w-full font-light text-justify text-neutral-800 text-sm md:overflow-visible overflow-x-hidden'>
+      <div className='flex justify-center py-[20%] md:py-32 pb-[10%]'>
+        <div className='top-20 md:sticky md:flex flex-[0.1] justify-end hidden pr-6 self-start'>
           <Socials shareUrl={slug} isVertical={true} isLarge={false} />
         </div>
         <BlogPost blogPostData={pageData} imgUrl={imgUrl!} />
-        <div className='top-20 hidden flex-[0.3] self-start p-6 pt-0 md:sticky md:block'>
+        <div className='md:block top-20 md:sticky flex-[0.3] hidden p-6 pt-0 self-start'>
           <RelatedContent relatedContents={allEntries.slice(0, 7)} />
         </div>
       </div>
@@ -53,6 +53,7 @@ const Page = async ({ params: { slug } }: PageProps) => {
           isHero={false}
           entries={entries}
           text={`Daha fazlası`}
+          paginationStyle='bg-gray-100'
         />
       </FlowContainerWithBackground>
     </main>

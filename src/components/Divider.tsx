@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Divider = () => (
-  <hr className='mx-auto my-12 w-[80%] border-dotted border-gray-300' />
+  <hr className='border-gray-300 mx-auto my-12 border-dotted w-[80%]' />
 )
 
 export default Divider
