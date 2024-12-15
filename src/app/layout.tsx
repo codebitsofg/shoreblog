@@ -11,15 +11,15 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://skknshore.com'),
-  title: 'Shore | Cilt bakımın için ipuçları ve daha fazlası',
+  metadataBase: new URL('https://blog.rutinhero.com'),
+  title: 'Rutin Hero | Blog',
   description:
     'Cilt bakımın için ipuçları ve daha fazlası. Cilt bakımında merak edilenler, rehberler, doğru bilinen yanlışlar ve cilt bakım elemanlarının derinlemesine çözümlenmesi.',
   icons: [
     {
       rel: 'icon',
       type: 'image/png',
-      sizes: '64x64',
+      sizes: '200x200',
       url: '/apple-icon.png',
     },
   ],
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='tr'>
-      <body className="bg-zinc-50 font-['Lora']">
+      <body className='bg-zinc-50 font-["Lora"]'>
         <Navigation />
         {children}
         <Divider />

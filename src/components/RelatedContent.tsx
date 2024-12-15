@@ -9,17 +9,17 @@ interface RelatedContentProps {
 const RelatedContent = ({ relatedContents }: RelatedContentProps) => {
   return (
     <div>
-      <span className='block mb-5 font-semibold text-xl'>Alakalı Yazılar</span>
+      <span className='mb-5 block text-xl font-semibold'>Alakalı Yazılar</span>
       {relatedContents.map(({ attributes: { image, title, slug } }) => (
-        <div className='flex items-center gap-2 mb-2'>
-          <Link passHref href={`/yazilar/${slug}`}>
+        <div className='mb-2 flex items-center gap-2'>
+          <Link passHref href={`/blog/yazilar/${slug}`}>
             <img
-              className='inline-block rounded w-[5vw] h-[5.5vw] object-cover'
+              className='inline-block h-[5.5vw] w-[5vw] rounded object-cover'
               src={image.data.attributes.url}
               alt={title}
             />
           </Link>
-          <span className='w-[50%] font-medium text-left'>{title}</span>
+          <span className='w-[50%] text-left font-medium'>{title}</span>
         </div>
       ))}
     </div>

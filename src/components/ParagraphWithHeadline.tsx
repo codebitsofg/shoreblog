@@ -1,5 +1,6 @@
 import React, { forwardRef, Ref, useCallback, useMemo } from 'react'
 import { Question } from '@/types/api'
+import InternalLink from './InternalLink'
 
 interface ParagraphWithHeadlineProps {
   question: Question
@@ -20,6 +21,7 @@ const ParagraphWithHeadline = forwardRef<
         questionInnerList,
         referenceUsername,
         innerListTitle,
+        internalLink,
       },
     }: ParagraphWithHeadlineProps,
     ref: Ref<HTMLDivElement>,
@@ -48,11 +50,13 @@ const ParagraphWithHeadline = forwardRef<
           )}
 
           {linkOrDescription && isLink ? (
-            <a className='text-xs text-purple-600' href={linkOrDescription}>
-              @{referenceUsername}
-              <span className='text-[0.6rem] text-neutral-800'>
-                {' '}
-                / INSTAGRAM
+            <a
+              className='mt-6 block text-xs text-black'
+              target='_blank'
+              href={linkOrDescription}
+            >
+              <span className='rounded-sm bg-red-500 px-4 py-1 text-sm text-white'>
+                Satın Al
               </span>
             </a>
           ) : (
@@ -78,6 +82,8 @@ const ParagraphWithHeadline = forwardRef<
             </li>
           ))}
         </ul>
+
+        {internalLink && <InternalLink {...internalLink} />}
       </div>
     )
   },

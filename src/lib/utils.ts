@@ -1,4 +1,4 @@
-import { DataItem, EntryCategory, Response } from '@/types/api'
+import { Attributes, DataItem, EntryCategory, Response } from '@/types/api'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const fetchCMSEntries = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/posts?populate[questions][populate][questionInnerList]=*&populate[image]=*&populate[paragraphs]=*&populate[attributions]=*&populate[keywords]=*`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/posts?populate[questions][populate][questionInnerList]=*&populate[questions][populate][internalLink]=*&populate[image]=*&populate[paragraphs]=*&populate[attributions]=*&populate[keywords]=*`,
     {
       headers: {
         'Content-Type': 'application/json',
@@ -26,11 +26,7 @@ export const getPageData = async (pageSlug: string) => {
     ({ attributes: { slug } }) => slug === pageSlug,
   )?.attributes
   const imgUrl = pageData?.image.data.attributes.url
-  return {
-    pageData,
-    imgUrl,
-    allEntries,
-  }
+  return { pageData, imgUrl, allEntries }
 }
 
 export const formatTheDate = (dateStr: string) => {
@@ -76,4 +72,39 @@ export const splitOnUppercase = (word: string) =>
 
 export const filterEntries = (filter: EntryCategory, entries: DataItem[]) => {
   return entries.filter(({ attributes: { category } }) => category === filter)
+}
+
+export const addArticleJsonLd = (pageData: Attributes) => {
+  return {
+    __html: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: pageData.title,
+      description: pageData.pageDescription,
+      url: `https://skknshore.com/yazilar/${pageData.slug}`,
+      image: [`https://skknshore.com/yazilar/${pageData.slug}/og.png`],
+      author: {
+        '@type': 'Person',
+        name: 'Rutinity',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Rutinity',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://skknshore.com/logo.png',
+        },
+      },
+      datePublished: pageData.createdAt || '2024-09-01',
+      dateModified: pageData.updatedAt || '2024-09-01',
+      mainEntity: pageData.questions.map(({ question, answer }) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: answer,
+        },
+      })),
+    }),
+  }
 }

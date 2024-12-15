@@ -9,7 +9,7 @@ const useScrollDirection = () => {
     if (
       currentScrollY > lastScrollY &&
       window.innerWidth > 700 &&
-      window.location.pathname.startsWith('/yazilar')
+      window.location.pathname.startsWith('/blog/yazilar')
     ) {
       setIsVisible(false)
     } else {

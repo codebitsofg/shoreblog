@@ -7,7 +7,7 @@ const AboutUsExplainer = () => {
   return (
     <div className='mx-auto mb-12 flex w-[80%] flex-col items-center gap-4 text-center md:mb-32 md:flex-row md:text-left'>
       <div className='h-12 w-full md:h-auto md:w-auto md:flex-[0.3]'>
-        <ShoreLogo />
+        <img src='/brand-logo.svg' alt='' />
       </div>
       <p className='my-6 flex-[0.5] font-["Oswald"] text-sm font-thin md:my-0 md:text-sm'>
         Shore cilt bakımının bazılarının yaşamında vazgeçilmez bir öneme sahip

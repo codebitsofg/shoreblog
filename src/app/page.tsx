@@ -8,6 +8,7 @@ import PostFlow from '@/components/PostFlow'
 import { fetchCMSEntries, filterEntries } from '@/lib/utils'
 import { EntryCategory } from '@/types/api'
 import FlowContainerWithBackground from '@/components/FlowContainerWithBackground'
+import ZodiacEdition from '@/components/ZodiacEdition'
 
 const Home = async () => {
   const entries = await fetchCMSEntries()
@@ -21,12 +22,14 @@ const Home = async () => {
         entries={filterEntries(EntryCategory.ICERIKLER, entries)}
       />
 
-      <FlowContainerWithBackground>
+      <div className='my-10 py-6'>
         <HorizontalFlowRow
-          title='Rutinler'
-          entries={filterEntries(EntryCategory.RUTINLER, entries)}
+          title='Medikal İşlemler'
+          entries={filterEntries(EntryCategory.ISLEMLER, entries)}
         />
-      </FlowContainerWithBackground>
+      </div>
+
+      <ZodiacEdition />
 
       <div className='my-6 py-2 md:py-6'>
         <Carousel
@@ -78,12 +81,13 @@ const Home = async () => {
         showMoreVisible={true}
       />
 
-      <div className='my-10 py-6'>
+      <FlowContainerWithBackground>
         <HorizontalFlowRow
-          title='Medikal İşlemler'
-          entries={filterEntries(EntryCategory.ISLEMLER, entries)}
+          title='Rutinler'
+          entries={filterEntries(EntryCategory.RUTINLER, entries)}
         />
-      </div>
+      </FlowContainerWithBackground>
+
       <Divider />
       <PostFlow entries={entries} />
       <CookieModal />

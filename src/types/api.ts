@@ -50,8 +50,14 @@ export interface Question {
   linkOrDescription?: string
   referenceUsername?: string
   innerListTitle: string
+  internalLink: InternalLink
 }
 
+export interface InternalLink {
+  id: string
+  link: string
+  linkDescription: string
+}
 export interface Paragraph {
   id: number
   paragraph: string

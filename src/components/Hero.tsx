@@ -5,7 +5,6 @@ import Carousel from './Carousel'
 
 interface HeroProps extends PostFlowProps {}
 const Hero = ({ entries }: HeroProps) => {
-  console.log(entries)
   return (
     <div className='relative mx-auto mb-12 pt-16 md:pt-24 w-[88%] font-["Lora"]'>
       <Carousel

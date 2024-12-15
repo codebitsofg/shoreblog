@@ -23,9 +23,8 @@ const PostFlowWithFilter = ({ entries }: PostFlowWithFilterProps) => {
     setfilteredEntries(filteredEntries)
   }
 
-  console.log(categories)
   return (
-    <div className='flex flex-col items-center text-center'>
+    <div className='flex flex-col items-center text-center font-["Lora"]'>
       <YazılarPageHeader />
       <div className='w min-h-[90vh] min-w-full bg-gray-100 py-8 pb-32'>
         <div className='mx-auto'>
